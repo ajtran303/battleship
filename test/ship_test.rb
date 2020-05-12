@@ -24,8 +24,6 @@ def test_hit
   assert_equal 1, cruiser.health
   assert_equal false, cruiser.sunk?
   cruiser.hit
-  require "pry"
-  binding.pry
   assert_equal true, cruiser.sunk?
 end
 
