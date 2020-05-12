@@ -5,12 +5,17 @@ require "minitest/pride"
 class CellTest < MiniTest::Test
 
   def setup
+    @cell = Cell.new("B4")
   end
 
   def test_it_exists
-    cell = Cell.new("B4")
+    assert_instance_of Cell, @cell
+  end
 
-    assert_instance_of Cell, cell
+  def test_it_has_attributes
+    assert_equal "B4", @cell.coordinate
+    assert_nil @cell.ship
+    assert_equal true, @cell.empty?
   end
 
 end
