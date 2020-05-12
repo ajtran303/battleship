@@ -11,4 +11,9 @@ def test_ship_exists_and_holds_attributes
   assert_equal 3, cruiser.health
 end
 
+def test_sunk?
+  cruiser = Ship.new("Cruiser", 3)
+  assert_equal false, cruiser.sunk?
+end
+
 end
