@@ -5,6 +5,7 @@ class Cell
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = nil
+    @fired_upon = false
   end
 
   def empty?
@@ -13,18 +14,17 @@ class Cell
 
   def place_ship(ship_obj)
     @ship = ship_obj
-    @fired_upon = false
   end
 
   def fire_upon
-
+    @fired_upon = true
   end
 
 
   def render(reveal=false)
     if reveal == true && !empty?
       "S"
-    elsif reveal == true && @ship == nil
+    elsif reveal == true || fired_upon? && @ship == nil
       "M"
     else
       "."
