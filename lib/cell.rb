@@ -15,4 +15,8 @@ class Cell
     @ship = ship_obj
   end
 
+  def render
+    "."
+  end
+
 end
