@@ -19,7 +19,7 @@ class CellTest < MiniTest::Test
     assert_equal true, @cell.empty?
   end
 
-  def test_it_hold_a_ship
+  def test_it_holds_a_ship
     cruiser = Ship.new("Cruiser", 3)
 
     @cell.place_ship(cruiser)
@@ -28,5 +28,10 @@ class CellTest < MiniTest::Test
     assert_equal false, @cell.empty?
   end
 
+  def test_it_renders_a_cell_with_dot
+    cell_1 = Cell.new("B4")
+
+    assert_equal ".", cell_1.render
+  end
 
 end
