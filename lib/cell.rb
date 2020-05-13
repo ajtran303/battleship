@@ -25,9 +25,11 @@ class Cell
 
 
   def render(reveal=false)
-    if reveal == true && !empty?
+    if reveal == true && (fired_upon? && !empty?) || fired_upon? && !empty?
+      "H"
+    elsif reveal == true && !empty?
       "S"
-    elsif reveal == true || fired_upon? && @ship == nil
+    elsif reveal == true || fired_upon? && empty?
       "M"
     else
       "."
