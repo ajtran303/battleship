@@ -36,7 +36,7 @@ class CellTest < MiniTest::Test
     assert_equal ".", cell_1.render
   end
 
-  def test_it_renders_to_m_when_fired_upon_and_has_no_ship
+  def test_it_renders_to_M_when_fired_upon_and_is_empty
     cell_1 = Cell.new("B4")
 
     cell_1.render
@@ -46,4 +46,49 @@ class CellTest < MiniTest::Test
     assert_equal "M", cell_1.render
   end
 
+  def test_it_can_render_a_ship
+    cell_2 = Cell.new("C3")
+
+    cruiser = Ship.new("Cruiser", 3)
+
+    cell_2.place_ship(cruiser)
+
+    assert_equal ".", cell_2.render
+
+    assert_equal "S", cell_2.render(true)
+  end
+
+  def test_it_starts_out_not_fired_upon
+    cell = Cell.new("B4")
+    cruiser = Ship.new("Cruiser", 3)
+    cell.place_ship(cruiser)
+
+    assert_equal false, cell.fired_upon?
+  end
+
+
+  def test_it_knows_when_it_becomes_fired_upon
+    cell = Cell.new("B4")
+    cruiser = Ship.new("Cruiser", 3)
+    cell.place_ship(cruiser)
+
+    cell.fire_upon
+
+    cell.fired_upon?
+
+    assert_equal true, cell.fired_upon?
+  end
+
+  def test_it_decreases_ship_health_when_fired_upon
+    cell = Cell.new("B4")
+    cruiser = Ship.new("Cruiser", 3)
+    cell.place_ship(cruiser)
+
+    cell.fire_upon
+
+    assert_equal 2, cell.ship.health
+  end
+
 end
+
+  # test_it_renders_to_H_when_fired_upon_and_has_a_ship
