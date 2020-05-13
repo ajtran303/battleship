@@ -24,7 +24,8 @@ class CellTest < MiniTest::Test
 
     @cell.place_ship(cruiser)
 
-    assert_equal cruiser, cell.ship
+    assert_equal cruiser, @cell.ship
+    assert_equal false, @cell.empty?
   end
 
 
