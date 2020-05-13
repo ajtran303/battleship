@@ -1,4 +1,5 @@
 require "./lib/cell"
+require "./lib/ship"
 require "minitest/autorun"
 require "minitest/pride"
 
@@ -17,5 +18,14 @@ class CellTest < MiniTest::Test
     assert_nil @cell.ship
     assert_equal true, @cell.empty?
   end
+
+  def test_it_hold_a_ship
+    cruiser = Ship.new("Cruiser", 3)
+
+    @cell.place_ship(cruiser)
+
+    assert_equal cruiser, cell.ship
+  end
+
 
 end
