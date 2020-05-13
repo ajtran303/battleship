@@ -5,7 +5,7 @@ class Cell
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = nil
-    @fired_upon = false
+    @is_fired_upon = false
   end
 
   def empty?
@@ -17,35 +17,30 @@ class Cell
   end
 
   def fire_upon
-    @fired_upon = true
+    @is_fired_upon = true
     if !empty?
       @ship.hit
     end
   end
 
+  # “X” if the cell has been fired upon and its ship has been sunk.
 
-  def render(reveal=false)
-    if reveal == true && (fired_upon? && !empty?) || fired_upon? && !empty?
+  def render(reveal=nil)
+    if !empty? && fired_upon? && @ship.sunk? || (!empty? && fired_upon? && @ship.sunk?) && reveal == true
+      "X"
+    elsif !empty? && fired_upon? || (!empty? && fired_upon?) && reveal == true
       "H"
-    elsif reveal == true && !empty?
+    elsif !empty? && reveal == true
       "S"
-    elsif reveal == true || fired_upon? && empty?
+    elsif empty? && fired_upon? || reveal == true
       "M"
-    else
+    elsif !fired_upon?
       "."
     end
   end
 
   def fired_upon?
-    @fired_upon
+    @is_fired_upon
   end
-
-
-
-# ”.” if the cell has not been fired upon.
-# “M” if the cell has been fired upon and it does not contain a ship (the shot was a miss).
-# “H” if the cell has been fired upon and it contains a ship (the shot was a hit).
-# “X” if the cell has been fired upon and its ship has been sunk.
-
 
 end

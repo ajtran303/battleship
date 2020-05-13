@@ -154,7 +154,6 @@ class CellTest < MiniTest::Test
     assert_equal "X", cell_2.render
     assert_equal "X", cell_2.render(true)
     assert_equal "X", cell_2.render
-
   end
 
 
