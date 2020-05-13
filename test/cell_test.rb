@@ -131,6 +131,31 @@ class CellTest < MiniTest::Test
     assert_equal false, cell_2.empty?
     assert_equal "H", cell_2.render
     assert_equal "H", cell_2.render(true)
+    assert_equal false, cruiser.sunk?
   end
+
+  def test_it_will_render_X_when_ship_is_sunk
+    cell_2 = Cell.new("C3")
+    cruiser = Ship.new("Cruiser", 3)
+
+    cell_2.place_ship(cruiser)
+
+    cell_2.fire_upon
+    # if !empty, cruiser.hit
+
+    assert_equal "H", cell_2.render(true)
+    assert_equal false, cruiser.sunk?
+    assert_equal "H", cell_2.render
+
+    2.times { cruiser.hit }
+
+    assert_equal true, cruiser.sunk?
+
+    assert_equal "X", cell_2.render
+    assert_equal "X", cell_2.render(true)
+    assert_equal "X", cell_2.render
+
+  end
+
 
 end
