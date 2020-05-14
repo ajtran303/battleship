@@ -29,7 +29,7 @@ class Board
 
   def place(ship, coords)
     coords.each do |coord|
-      cells[coord].add_ship(ship)
+      cells[coord].place_ship(ship)
     end
   end
 

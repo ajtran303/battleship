@@ -156,5 +156,9 @@ class CellTest < MiniTest::Test
     assert_equal "X", cell_2.render
   end
 
+  def test_add_ship
+    cruiser = Ship.new("Cruiser", 3)
+
+  end
 
 end
