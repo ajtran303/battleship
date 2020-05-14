@@ -39,4 +39,8 @@ class Cell
     @is_fired_upon
   end
 
+  def add_ship(ship)
+    @ship = ship
+  end
+
 end
