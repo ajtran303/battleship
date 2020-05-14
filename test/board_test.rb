@@ -14,4 +14,9 @@ class BoardTest < MiniTest::Test
     assert_equal "D3", board.cells["D3"].coordinate
   end
 
+  def test_valid_coordinate? 
+    board = Board.new
+    assert_equal true, board.valid_coordinate?("A1")
+  end
+
 end
