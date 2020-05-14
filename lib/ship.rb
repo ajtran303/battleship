@@ -1,3 +1,6 @@
+#Here's a zoom link https://zoom.us/j/5752468064?pwd=dE1YcVN6THFReW1MWWlTamU3eVZ5Zz09
+#hop on.  Cheers!
+
 class Ship
 
   attr_reader :name,

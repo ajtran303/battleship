@@ -27,4 +27,11 @@ class Board
     @cells.include?(coordinate)
   end
 
+  def place(ship, coords)
+    coords.each do |coord|
+      cells[coord].add_ship(ship)
+    end
+  end
+
+
 end
