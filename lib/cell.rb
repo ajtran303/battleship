@@ -1,4 +1,5 @@
 class Cell
+
   attr_reader :coordinate,
               :ship
 
@@ -12,8 +13,8 @@ class Cell
     @ship == nil
   end
 
-  def place_ship(ship_obj)
-    @ship = ship_obj
+  def place_ship(ship)
+    @ship = ship
   end
 
   def fire_upon
@@ -22,8 +23,6 @@ class Cell
       @ship.hit
     end
   end
-
-  # “X” if the cell has been fired upon and its ship has been sunk.
 
   def render(reveal=nil)
     if !empty? && fired_upon? && @ship.sunk? || (!empty? && fired_upon? && @ship.sunk?) && reveal == true

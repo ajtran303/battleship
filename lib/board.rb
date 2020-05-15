@@ -27,4 +27,18 @@ class Board
     @cells.include?(coordinate)
   end
 
+  def place(ship, coords)
+    coords.each do |coord|
+      cells[coord].place_ship(ship)
+    end
+  end
+
+  def valid_placement?(ship, coords)
+  
+    coords.find do |coord|
+      !@cells[coord].empty?
+    end
+
+  end
+
 end
