@@ -33,4 +33,12 @@ class Board
     end
   end
 
+  def valid_placement?(ship, coords)
+  
+    coords.find do |coord|
+      !@cells[coord].empty?
+    end
+
+  end
+
 end
