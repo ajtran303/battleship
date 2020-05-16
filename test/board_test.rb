@@ -58,7 +58,6 @@ class BoardTest < MiniTest::Test
 
 
   def test_it_will_not_validate_if_coords_are_not_consecutive
-    skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -118,5 +117,26 @@ class BoardTest < MiniTest::Test
     assert_equal false, board.is_consecutive_row_or_col(coords_false_2)
   end
 
+  def test_it_knows_if_coords_are_diagonal
+    board = Board.new
+    coords_row = ["A1", "A2", "A3"]
+    coords_col = ["A1", "B1", "C1"]
+    coords_diag_1 = ["A1", "B2", "C3"]
+    coords_diag_2 = ["C2", "D3"]
+
+    assert_equal false, board.is_diagonal?(coords_row)
+    assert_equal false, board.is_diagonal?(coords_col)
+    assert_equal true, board.is_diagonal?(coords_diag_1)
+    assert_equal true, board.is_diagonal?(coords_diag_2)
+  end
+
+  def test_it_will_not_validate_if_coords_are_diagonal
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    assert_equal false, board.valid_placement?(cruiser, ["A1", "B2", "C3"])
+    assert_equal false, board.valid_placement?(submarine, ["C2", "D3"])
+  end
 
 end
