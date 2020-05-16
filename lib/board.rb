@@ -49,5 +49,11 @@ class Board
     coords.all? { |num| num[-1] == "1"} || coords.all? { |num| num[-1] == "2"} || coords.all? { |num| num[-1] == "3"} || coords.all? { |num| num[-1] == "4"}
   end
 
+  def is_consecutive_row?(coords)
+    nums = coords.map { |n| n[-1] }
+    range = nums[0]..nums[-1]
+    nums == range.to_a
+  end
+
 
 end
