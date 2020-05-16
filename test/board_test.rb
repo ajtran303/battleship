@@ -149,10 +149,10 @@ class BoardTest < MiniTest::Test
   end
 
   def test_it_will_not_validate_if_ships_overlap
-    skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["A1", "A2", "A3"])
+    submarine = Ship.new("Submarine", 2)
 
     assert_equal false, board.valid_placement?(submarine, ["A1", "B1"])
   end
