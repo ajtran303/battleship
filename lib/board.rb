@@ -38,7 +38,7 @@ class Board
   end
 
   def same_length?(ship, coords)
-    ship.length == coords.length
+    ship.length == coords.length && is_consecutive_row_or_col(coords)
   end
 
   def is_row?(coords)
