@@ -61,5 +61,8 @@ class Board
     letters == range.to_a
   end
 
+  def is_consecutive_row_or_col(coords)
+    is_consecutive_row?(coords) || is_consecutive_col?(coords)
+  end
 
 end
