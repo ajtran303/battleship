@@ -46,7 +46,7 @@ class BoardTest < MiniTest::Test
     assert_equal false, board.valid_placement?(submarine, ["A2", "A3", "A4"])
   end
 
-  def test_it_has_a_helper_method_to_check_for_same_length
+  def test_it_knows_if_coords_and_ship_are_same_length
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     coords_1 = ["A2", "A3", "A4"]
@@ -74,13 +74,11 @@ class BoardTest < MiniTest::Test
     coords_true = ["A1", "A2", "A3"]
     coords_false = ["A1", "B1", "C1"]
 
-
     assert_equal true, board.is_row?(coords_true)
     assert_equal false, board.is_row?(coords_false)
   end
 
   def test_it_knows_if_coords_are_in_a_column
-    skip
     board = Board.new
     coords_true = ["A1", "B1", "C1"]
     coords_false = ["A1", "A2", "A3"]
@@ -89,9 +87,7 @@ class BoardTest < MiniTest::Test
     assert_equal false, board.is_col?(coords_false)
   end
 
-
   def test_it_knows_if_coords_are_consecutive_in_a_row
-    skip
     board = Board.new
     coords_true = ["A1", "A2", "A3"]
     coords_false = ["A3", "A2", "A1"]
@@ -101,7 +97,6 @@ class BoardTest < MiniTest::Test
   end
 
   def test_it_knows_if_coords_are_consecutive_in_a_column
-    skip
     board = Board.new
     coords_true = ["A1", "B1", "C1"]
     coords_false = ["C1", "B1", "A1"]
@@ -109,5 +104,19 @@ class BoardTest < MiniTest::Test
     assert_equal true, board.is_consecutive_col?(coords_true)
     assert_equal false, board.is_consecutive_col?(coords_false)
   end
+
+  def test_it_knows_if_coords_are_consecutive_row_or_column
+    board = Board.new
+    coords_row = ["A1", "A2", "A3"]
+    coords_col = ["A1", "B1", "C1"]
+    coords_false_1 = ["A3", "A2", "A1"]
+    coords_false_2 = ["C1", "B1", "A1"]
+
+    assert_equal true, board.is_consecutive_row_or_col(coords_row)
+    assert_equal true, board.is_consecutive_row_or_col(coords_col)
+    assert_equal false, board.is_consecutive_row_or_col(coords_false_1)
+    assert_equal false, board.is_consecutive_row_or_col(coords_false_2)
+  end
+
 
 end
