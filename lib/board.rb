@@ -69,5 +69,8 @@ class Board
     letters == range.to_a
   end
 
+  def is_overlap?(coord)
+    !@cells[coord].empty?
+  end
 
 end
