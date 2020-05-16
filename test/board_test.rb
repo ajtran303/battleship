@@ -166,4 +166,41 @@ class BoardTest < MiniTest::Test
     assert_equal false, board.is_overlap?("B1")
   end
 
+  def test_it_will_render_dots_if_no_ships_placed
+    board = Board.new
+
+    expected =  "  1 2 3 4 \n" +
+                "A . . . . \n" +
+                "B . . . . \n" +
+                "C . . . . \n" +
+                "D . . . . \n"
+
+    assert_equal expected, board.render
+    assert_equal expected, board.render(true)
+  end
+
+
+  def test_it_will_render_if_a_ship_is_placed
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+
+    board.place(cruiser, ["A1", "A2", "A3"])
+
+    expected =  "  1 2 3 4 \n" +
+                "A S S S . \n" +
+                "B . . . . \n" +
+                "C . . . . \n" +
+                "D . . . . \n"
+
+    assert_equal expected, board.render(true)
+
+    expected =  "  1 2 3 4 \n" +
+                "A . . . . \n" +
+                "B . . . . \n" +
+                "C . . . . \n" +
+                "D . . . . \n"
+
+    assert_equal expected, board.render
+  end
+
 end
