@@ -34,11 +34,11 @@ class Board
   end
 
   def valid_placement?(ship, coords)
-    same_length?(ship, coords)
+    same_length?(ship, coords) && is_consecutive_row_or_col(coords) && !is_diagonal?(coords)
   end
 
   def same_length?(ship, coords)
-    ship.length == coords.length && is_consecutive_row_or_col(coords)
+    ship.length == coords.length
   end
 
   def is_diagonal?(coords)
@@ -53,6 +53,10 @@ class Board
     coords.all? { |num| num[-1] == "1"} || coords.all? { |num| num[-1] == "2"} || coords.all? { |num| num[-1] == "3"} || coords.all? { |num| num[-1] == "4"}
   end
 
+  def is_consecutive_row_or_col(coords)
+    is_consecutive_row?(coords) || is_consecutive_col?(coords)
+  end
+
   def is_consecutive_row?(coords)
     nums = coords.map { |num| num[-1] }
     range = nums[0]..nums[-1]
@@ -65,8 +69,5 @@ class Board
     letters == range.to_a
   end
 
-  def is_consecutive_row_or_col(coords)
-    is_consecutive_row?(coords) || is_consecutive_col?(coords)
-  end
 
 end
