@@ -34,11 +34,43 @@ class Board
   end
 
   def valid_placement?(ship, coords)
-  
-    coords.find do |coord|
-      !@cells[coord].empty?
-    end
+    same_length?(ship, coords) && is_consecutive_row_or_col(coords) && !is_diagonal?(coords) && ( coords.none? { |coord| is_overlap?(coord) } )
+  end
 
+  def same_length?(ship, coords)
+    ship.length == coords.length
+  end
+
+  def is_diagonal?(coords)
+    !is_row?(coords) && !is_col?(coords)
+  end
+
+  def is_row?(coords)
+    coords.all? { |letter| letter[0] == "A"} || coords.all? { |letter| letter[0] == "B"} || coords.all? { |letter| letter[0] == "C"} || coords.all? { |letter| letter[0] == "D"}
+  end
+
+  def is_col?(coords)
+    coords.all? { |num| num[-1] == "1"} || coords.all? { |num| num[-1] == "2"} || coords.all? { |num| num[-1] == "3"} || coords.all? { |num| num[-1] == "4"}
+  end
+
+  def is_consecutive_row_or_col(coords)
+    is_consecutive_row?(coords) || is_consecutive_col?(coords)
+  end
+
+  def is_consecutive_row?(coords)
+    nums = coords.map { |num| num[-1] }
+    range = nums[0]..nums[-1]
+    nums == range.to_a
+  end
+
+  def is_consecutive_col?(coords)
+    letters = coords.map { |let| let[0] }
+    range = letters[0]..letters[-1]
+    letters == range.to_a
+  end
+
+  def is_overlap?(coord)
+    !@cells[coord].empty?
   end
 
 end

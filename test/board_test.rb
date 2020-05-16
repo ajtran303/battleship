@@ -37,4 +37,133 @@ class BoardTest < MiniTest::Test
     assert_equal true, cell_3.ship == cell_2.ship
   end
 
+  def test_it_will_not_validate_if_coords_and_ship_lengths_are_not_same
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    assert_equal false, board.valid_placement?(cruiser, ["A1", "A2"])
+    assert_equal false, board.valid_placement?(submarine, ["A2", "A3", "A4"])
+  end
+
+  def test_it_knows_if_coords_and_ship_are_same_length
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    coords_1 = ["A2", "A3", "A4"]
+    coords_2 = ["A2", "A3"]
+
+    assert_equal true, board.same_length?(cruiser, coords_1)
+    assert_equal false, board.same_length?(cruiser, coords_2)
+  end
+
+
+  def test_it_will_not_validate_if_coords_are_not_consecutive
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    assert_equal false, board.valid_placement?(cruiser, ["A1", "A2", "A4"])
+    assert_equal false, board.valid_placement?(submarine, ["A1", "C1"])
+    assert_equal false, board.valid_placement?(cruiser, ["A3", "A2", "A1"])
+    assert_equal false, board.valid_placement?(submarine, ["C1", "B1"])
+  end
+
+  def test_it_knows_if_coords_are_in_a_row
+    board = Board.new
+    coords_true = ["A1", "A2", "A3"]
+    coords_false = ["A1", "B1", "C1"]
+
+    assert_equal true, board.is_row?(coords_true)
+    assert_equal false, board.is_row?(coords_false)
+  end
+
+  def test_it_knows_if_coords_are_in_a_column
+    board = Board.new
+    coords_true = ["A1", "B1", "C1"]
+    coords_false = ["A1", "A2", "A3"]
+
+    assert_equal true, board.is_col?(coords_true)
+    assert_equal false, board.is_col?(coords_false)
+  end
+
+  def test_it_knows_if_coords_are_consecutive_in_a_row
+    board = Board.new
+    coords_true = ["A1", "A2", "A3"]
+    coords_false = ["A3", "A2", "A1"]
+
+    assert_equal true, board.is_consecutive_row?(coords_true)
+    assert_equal false, board.is_consecutive_row?(coords_false)
+  end
+
+  def test_it_knows_if_coords_are_consecutive_in_a_column
+    board = Board.new
+    coords_true = ["A1", "B1", "C1"]
+    coords_false = ["C1", "B1", "A1"]
+
+    assert_equal true, board.is_consecutive_col?(coords_true)
+    assert_equal false, board.is_consecutive_col?(coords_false)
+  end
+
+  def test_it_knows_if_coords_are_consecutive_row_or_column
+    board = Board.new
+    coords_row = ["A1", "A2", "A3"]
+    coords_col = ["A1", "B1", "C1"]
+    coords_false_1 = ["A3", "A2", "A1"]
+    coords_false_2 = ["C1", "B1", "A1"]
+
+    assert_equal true, board.is_consecutive_row_or_col(coords_row)
+    assert_equal true, board.is_consecutive_row_or_col(coords_col)
+    assert_equal false, board.is_consecutive_row_or_col(coords_false_1)
+    assert_equal false, board.is_consecutive_row_or_col(coords_false_2)
+  end
+
+  def test_it_knows_if_coords_are_diagonal
+    board = Board.new
+    coords_row = ["A1", "A2", "A3"]
+    coords_col = ["A1", "B1", "C1"]
+    coords_diag_1 = ["A1", "B2", "C3"]
+    coords_diag_2 = ["C2", "D3"]
+
+    assert_equal false, board.is_diagonal?(coords_row)
+    assert_equal false, board.is_diagonal?(coords_col)
+    assert_equal true, board.is_diagonal?(coords_diag_1)
+    assert_equal true, board.is_diagonal?(coords_diag_2)
+  end
+
+  def test_it_will_not_validate_if_coords_are_diagonal
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    assert_equal false, board.valid_placement?(cruiser, ["A1", "B2", "C3"])
+    assert_equal false, board.valid_placement?(submarine, ["C2", "D3"])
+  end
+
+  def test_it_will_validate_if_same_length_AND_consecutive_row_or_column_AND_not_diagonal
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    assert_equal true, board.valid_placement?(submarine, ["A1", "A2"])
+    assert_equal true, board.valid_placement?(cruiser, ["B1", "C1", "D1"])
+  end
+
+  def test_it_will_not_validate_if_ships_overlap
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    board.place(cruiser, ["A1", "A2", "A3"])
+    submarine = Ship.new("Submarine", 2)
+
+    assert_equal false, board.valid_placement?(submarine, ["A1", "B1"])
+  end
+
+  def test_it_knows_if_coords_is_overlap
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    board.place(cruiser, ["A1", "A2", "A3"])
+
+    assert_equal true, board.is_overlap?("A1")
+    assert_equal false, board.is_overlap?("B1")
+  end
+
 end
