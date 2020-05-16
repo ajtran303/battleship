@@ -50,9 +50,15 @@ class Board
   end
 
   def is_consecutive_row?(coords)
-    nums = coords.map { |n| n[-1] }
+    nums = coords.map { |num| num[-1] }
     range = nums[0]..nums[-1]
     nums == range.to_a
+  end
+
+  def is_consecutive_col?(coords)
+    letters = coords.map { |let| let[0] }
+    range = letters[0]..letters[-1]
+    letters == range.to_a
   end
 
 
