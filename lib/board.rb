@@ -34,11 +34,15 @@ class Board
   end
 
   def valid_placement?(ship, coords)
-  
-    coords.find do |coord|
-      !@cells[coord].empty?
-    end
+    same_length?(ship, coords)
+  end
 
+  def same_length?(ship, coords)
+    ship.length == coords.length
+  end
+
+  def is_row?(coords)
+    coords.all? { |letter| letter[0] == "A"} || coords.all? { |letter| letter[0] == "B"} || coords.all? { |letter| letter[0] == "C"} || coords.all? { |letter| letter[0] == "D"}
   end
 
 end
