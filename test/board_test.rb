@@ -46,6 +46,17 @@ class BoardTest < MiniTest::Test
     assert_equal false, board.valid_placement?(submarine, ["A2", "A3", "A4"])
   end
 
+  def test_it_has_a_helper_method_to_check_for_same_length
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    coords_1 = ["A2", "A3", "A4"]
+    coords_2 = ["A2", "A3"]
+
+    assert_equal true, board.same_length?(cruiser, coords_1)
+    assert_equal false, board.same_length?(cruiser, coords_2)
+  end
+
+
   def test_it_will_not_validate_if_coords_are_not_consecutive
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
