@@ -41,6 +41,10 @@ class Board
     ship.length == coords.length && is_consecutive_row_or_col(coords)
   end
 
+  def is_diagonal?(coords)
+    !is_row?(coords) && !is_col?(coords)
+  end
+
   def is_row?(coords)
     coords.all? { |letter| letter[0] == "A"} || coords.all? { |letter| letter[0] == "B"} || coords.all? { |letter| letter[0] == "C"} || coords.all? { |letter| letter[0] == "D"}
   end
