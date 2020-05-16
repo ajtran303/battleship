@@ -37,4 +37,13 @@ class BoardTest < MiniTest::Test
     assert_equal true, cell_3.ship == cell_2.ship
   end
 
+  def test_it_will_not_validate_placement_when_array_size_and_ship_length_are_not_same
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    assert_equal false, board.valid_placement?(cruiser, ["A1", "A2"])
+    assert_equal false, board.valid_placement?(submarine, ["A2", "A3", "A4"])
+  end
+
 end
