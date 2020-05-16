@@ -149,6 +149,7 @@ class BoardTest < MiniTest::Test
   end
 
   def test_it_will_not_validate_if_ships_overlap
+    skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["A1", "A2", "A3"])
@@ -156,13 +157,13 @@ class BoardTest < MiniTest::Test
     assert_equal false, board.valid_placement?(submarine, ["A1", "B1"])
   end
 
-  def test_it_knows_if_coords_are_empty
+  def test_it_knows_if_coords_is_overlap
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["A1", "A2", "A3"])
 
-    assert_equal false, board.empty?("A1")
-    assert_equal true, board.empty?("B1")
+    assert_equal true, board.is_overlap?("A1")
+    assert_equal false, board.is_overlap?("B1")
   end
 
 end
