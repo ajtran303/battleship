@@ -68,4 +68,22 @@ class BoardTest < MiniTest::Test
     assert_equal false, board.valid_placement?(submarine, ["C1", "B1"])
   end
 
+  def test_it_knows_if_coords_are_consecutive_in_a_row
+    board = Board.new
+    coords_true = ["A1", "A2", "A3"]
+    coords_false = ["A3", "A2", "A1"]
+
+    assert_equal true, board.is_consecutive_row?(coords_true)
+    assert_equal false, board.is_consecutive_row?(coords_false)
+  end
+
+  def test_it_knows_if_coords_are_consecutive_in_a_column
+    board = Board.new
+    coords_true = ["A1", "B1", "C1"]
+    coords_false = ["C1", "B1", "A1"]
+
+    assert_equal true, board.is_consecutive_col?(coords_true)
+    assert_equal false, board.is_consecutive_col?(coords_false)
+  end
+
 end
