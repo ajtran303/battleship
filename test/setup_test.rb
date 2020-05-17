@@ -15,14 +15,14 @@ end
 def test_attribute_access
   setup = Setup.new
   assert_instance_of Board, setup.player_board
-  assert_instance_of Ship, setup.cruiser
-  assert_instance_of Ship, setup.submarine
+  assert_instance_of Ship, setup.player_cruiser
+  assert_instance_of Ship, setup.player_submarine
 end
 
 def test_place_player_ships
   setup = Setup.new
   setup.place_player_ships
-  #Test writted using input a1 a2 a3 for cruiser and d1 d2 for sub
+  #Test written using input a1 a2 a3 for cruiser and d1 d2 for sub
   expected = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD S S . . \n"
   assert_equal expected, setup.player_board.render(true)
 end
