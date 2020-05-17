@@ -33,7 +33,7 @@ class Cell
       "S"
     elsif empty? && fired_upon? || reveal == true
       "M"
-    elsif !fired_upon?
+    else
       "."
     end
   end

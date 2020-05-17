@@ -73,4 +73,18 @@ class Board
     !@cells[coord].empty?
   end
 
+  def render(reveal = false)
+    rendered_cell = ""
+    cells.each do |cell|
+       rendered_cell += cell[1].render(reveal) + " "
+    end
+    require "pry"
+    binding.pry
+    "  1 2 3 4 \n" +
+    "A #{rendered_cell[0..7]}\n" +
+    "B #{rendered_cell[8..15]}\n" +
+    "C #{rendered_cell[8..15]}\n" +
+    "D #{rendered_cell[16..23]}\n"
+  end
+
 end
