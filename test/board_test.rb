@@ -265,4 +265,33 @@ class BoardTest < MiniTest::Test
     assert_equal expected, board.render
   end
 
+  def test_it_will_render_everything_that_happens
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+    board.place(cruiser, ["A1", "A2", "A3"])
+    board.place(submarine, ["C1", "D1"])
+
+    board.cells["A1"].fire_upon
+    board.cells["B4"].fire_upon
+    board.cells["C1"].fire_upon
+    board.cells["D1"].fire_upon
+
+    expected =  "  1 2 3 4 \n" +
+                "A H . . . \n" +
+                "B . . . M \n" +
+                "C X . . . \n" +
+                "D X . . . \n"
+
+    assert_equal expected, board.render
+
+    expected =  "  1 2 3 4 \n" +
+                "A H S S . \n" +
+                "B . . . M \n" +
+                "C X . . . \n" +
+                "D X . . . \n"
+
+    assert_equal expected, board.render(true)
+  end
+
 end
