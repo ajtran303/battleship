@@ -233,9 +233,6 @@ class BoardTest < MiniTest::Test
 
     board.cells["C1"].fire_upon
 
-    require "pry"
-    binding.pry
-
     expected =  "  1 2 3 4 \n" +
                 "A . . . . \n" +
                 "B . . . . \n" +
