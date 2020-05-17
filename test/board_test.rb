@@ -166,7 +166,7 @@ class BoardTest < MiniTest::Test
     assert_equal false, board.is_overlap?("B1")
   end
 
-  def test_it_will_render_dots_if_no_ships_placed
+  def test_it_will_render_if_no_ships_placed
     board = Board.new
 
     expected =  "  1 2 3 4 \n" +
@@ -183,7 +183,6 @@ class BoardTest < MiniTest::Test
   def test_it_will_render_if_a_ship_is_placed
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
-
     board.place(cruiser, ["A1", "A2", "A3"])
 
     expected =  "  1 2 3 4 \n" +
@@ -197,6 +196,69 @@ class BoardTest < MiniTest::Test
     expected =  "  1 2 3 4 \n" +
                 "A . . . . \n" +
                 "B . . . . \n" +
+                "C . . . . \n" +
+                "D . . . . \n"
+
+    assert_equal expected, board.render
+  end
+
+  def test_it_will_render_if_a_ship_is_hit
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    board.place(cruiser, ["A1", "A2", "A3"])
+
+    board.cells["A1"].fire_upon
+
+    expected =  "  1 2 3 4 \n" +
+                "A H . . . \n" +
+                "B . . . . \n" +
+                "C . . . . \n" +
+                "D . . . . \n"
+
+    assert_equal expected, board.render
+
+    expected =  "  1 2 3 4 \n" +
+                "A H S S . \n" +
+                "B . . . . \n" +
+                "C . . . . \n" +
+                "D . . . . \n"
+
+    assert_equal expected, board.render(true)
+  end
+
+  def test_it_will_render_if_a_ship_is_sunk
+    board = Board.new
+    submarine = Ship.new("Submarine", 2)
+    board.place(submarine, ["C1", "D1"])
+
+    board.cells["C1"].fire_upon
+
+    expected =  "  1 2 3 4 \n" +
+                "A . . . . \n" +
+                "B . . . . \n" +
+                "C H . . . \n" +
+                "D . . . . \n"
+
+    assert_equal expected, board.render
+
+    board.cells["D1"].fire_upon
+
+    expected =  "  1 2 3 4 \n" +
+                "A . . . . \n" +
+                "B . . . . \n" +
+                "C X . . . \n" +
+                "D X . . . \n"
+
+    assert_equal expected, board.render
+  end
+
+  def test_it_will_render_if_a_shot_missed
+    board = Board.new
+    board.cells["B4"].fire_upon
+
+    expected =  "  1 2 3 4 \n" +
+                "A . . . . \n" +
+                "B . . . M \n" +
                 "C . . . . \n" +
                 "D . . . . \n"
 
