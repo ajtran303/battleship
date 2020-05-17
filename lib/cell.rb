@@ -24,7 +24,7 @@ class Cell
     end
   end
 
-  def render(reveal=nil)
+  def render(reveal=false)
     if !empty? && fired_upon? && @ship.sunk? || (!empty? && fired_upon? && @ship.sunk?) && reveal == true
       "X"
     elsif !empty? && fired_upon? || (!empty? && fired_upon?) && reveal == true
