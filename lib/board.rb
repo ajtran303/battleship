@@ -78,8 +78,6 @@ class Board
     cells.each do |cell|
        rendered_cell += cell[1].render(reveal) + " "
     end
-    require "pry"
-    binding.pry
     "  1 2 3 4 \n" +
     "A #{rendered_cell[0..7]}\n" +
     "B #{rendered_cell[8..15]}\n" +

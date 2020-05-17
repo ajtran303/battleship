@@ -176,7 +176,7 @@ class BoardTest < MiniTest::Test
                 "D . . . . \n"
 
     assert_equal expected, board.render
-    # assert_equal expected, board.render(true)
+    assert_equal expected, board.render(true)
   end
 
 
