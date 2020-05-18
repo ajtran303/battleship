@@ -175,6 +175,9 @@ class BoardTest < MiniTest::Test
                 "C . . . . \n" +
                 "D . . . . \n"
 
+                require "pry"
+                binding.pry
+
     assert_equal expected, board.render
     assert_equal expected, board.render(true)
   end
