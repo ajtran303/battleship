@@ -4,6 +4,7 @@ class Starter
 
   def initialize
     @turn = nil
+    render_bars
     main_menu
     start_game
     end_game
@@ -21,6 +22,12 @@ class Starter
 
   def prompt
     puts "Enter p to play. Enter q to quit."
+  end
+
+  def render_bars
+    s = ""
+    40.times { s += "=" }
+    puts s
   end
 
   def p_or_q_loop
@@ -59,8 +66,10 @@ class Starter
   end
 
   def end_game
+    2.times { render_bars }
     puts "You won!" if cpu_lost?
     puts "I won!" if player_lost?
+    2.times { render_bars }
     main_menu
   end
 
