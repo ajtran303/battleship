@@ -1,4 +1,4 @@
-class Setup
+class SetupComputer
   attr_reader :board, :ships
 
   def initialize(board, ships)

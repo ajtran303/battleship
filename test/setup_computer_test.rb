@@ -1,21 +1,21 @@
 require "minitest/autorun"
 require "minitest/pride"
-require "./lib/setup"
+require "./lib/setup_computer"
 require "./lib/board"
 require "./lib/cell"
 require "./lib/ship"
 
-class SetupTest < MiniTest::Test
+class SetupComputerTest < MiniTest::Test
 
   def setup
     @cpu_cruiser = Ship.new("Cruiser", 3)
     @cpu_submarine = Ship.new("Submarine", 2)
     @cpu_board = Board.new
-    @cpu_setup = Setup.new(@cpu_board, [@cpu_cruiser, @cpu_submarine])
+    @cpu_setup = SetupComputer.new(@cpu_board, [@cpu_cruiser, @cpu_submarine])
   end
 
   def test_it_exists_and_has_attributes
-    assert_instance_of Setup, @cpu_setup
+    assert_instance_of SetupComputer, @cpu_setup
     assert_equal @cpu_board, @cpu_setup.board
     assert_equal [@cpu_cruiser, @cpu_submarine], @cpu_setup.ships
   end
