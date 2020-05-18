@@ -25,4 +25,17 @@ class TurnTest < MiniTest::Test
     assert_equal "A1", turn.player_coord
   end
 
+  def test_it_has_a_hash_of_results_messages
+    turn = Turn.new
+
+    expected = {"M" => "was a miss",
+                "H" => "hit a ship",
+                "X" => "sunk a ship"}
+
+    assert_equal expected, turn.results
+    assert_equal "was a miss", turn.results["M"]
+    assert_equal "hit a ship", turn.results["H"]
+    assert_equal "sunk a ship", turn.results["X"]
+  end
+
 end
