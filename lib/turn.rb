@@ -2,7 +2,7 @@ require "./lib/setup"
 
 class Turn
 
-  attr_reader :player_coord
+  attr_reader :player_coord, :setup
 
   def initialize
     setup = Setup.new
@@ -13,7 +13,7 @@ class Turn
 
   def render_cpu
     puts "=============COMPUTER BOARD============="
-    puts @setup.cpu_board.render(true)
+    puts @setup.cpu_board.render
   end
 
   def render_player
@@ -40,10 +40,13 @@ class Turn
     puts "Enter the coordinate for your shot:"
     loop do
       player_shot_coord = gets.chomp.upcase
-      break if @setup.player_board.valid_coordinate?(player_shot_coord)
-      puts "Please enter a valid coordinate:"
+      if @setup.player_board.valid_coordinate?(player_shot_coord)
+        update_player_coord(player_shot_coord)
+        break
+      else
+        puts "Please enter a valid coordinate:"
+      end
     end
-    update_player_coord(player_shot_coord)
   end
 
   def player_fire
