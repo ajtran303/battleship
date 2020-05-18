@@ -28,37 +28,40 @@ class Turn
   def fire_at_cpu
     if @setup.cpu_board.cells["#{@player_coord}"].fired_upon?
       puts ["Again? Bold strategy!",
-            "The ships do not move in this game!",
             "It was not very effective...",
             "You threw away your shot!!!",
             "You already shot there!!!"].sample
-      puts "Hint: Next time shoot somewhere else!"
-      end
+      puts "Hint: don't pick #{@player_coord} again!"
+    end
     @setup.cpu_board.cells["#{@player_coord}"].fire_upon
   end
 
-  def player_fire
+  def get_player_coord
+    puts "Enter the coordinate for your shot:"
     loop do
-      puts "Enter the coordinate for your shot:"
       player_shot_coord = gets.chomp.upcase
-      if @setup.player_board.valid_coordinate?(player_shot_coord)
-        update_player_coord(player_shot_coord)
-        break
-      else
-        puts "Those are invalid coordinates. Please try again:"
-      end
+      break if @setup.player_board.valid_coordinate?(player_shot_coord)
+      puts "Please enter a valid coordinate:"
     end
+    update_player_coord(player_shot_coord)
+  end
+
+  def player_fire
+    get_player_coord
     fire_at_cpu
   end
 
   def cpu_fire
   end
 
+  def results
+    { "M" => "was a miss",
+    "H" => "hit a ship",
+    "X" => "sunk a ship" }
+  end
+
   def report_player_results
     x = get_player_shot_result
-    results = { "M" => "was a miss",
-                "H" => "hit a ship",
-                "X" => "sunk a ship" }
     puts "Your shot on #{@player_coord} #{results[x]}."
   end
 
