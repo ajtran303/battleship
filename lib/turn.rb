@@ -27,6 +27,7 @@ class Turn
 
   def fire_at_cpu
     if @setup.cpu_board.cells["#{@player_coord}"].fired_upon?
+      render_bars
       puts ["Again? Bold strategy!",
             "It was not very effective...",
             "You threw away your shot!!!",
@@ -37,6 +38,7 @@ class Turn
   end
 
   def get_player_coord
+    render_bars
     puts "Enter the coordinate for your shot:"
     loop do
       player_shot_coord = gets.chomp.upcase
@@ -63,8 +65,15 @@ class Turn
     "X" => "sunk a ship" }
   end
 
+  def render_bars
+    s = ""
+    40.times { s += "=" }
+    puts s
+  end
+
   def report_player_results
     x = get_player_shot_result
+    render_bars
     puts "Your shot on #{@player_coord} #{results[x]}."
   end
 
