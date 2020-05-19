@@ -29,6 +29,21 @@ class Turn
     @cpu_coord.fire_upon
   end
 
+  def get_cpu_shot_result
+    @setup.player_board.cells[@cpu_coord.coordinate].render
+  end
+
+  def results
+    { "M" => "was a miss",
+    "H" => "hit a ship",
+    "X" => "sunk a ship" }
+  end
+
+  def report_cpu_results
+    x = get_cpu_shot_result
+    "My shot on #{@cpu_coord.coordinate} #{results[x]}."
+  end
+
 end
 
 # turn = Turn.new
