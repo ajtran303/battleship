@@ -2,6 +2,9 @@ require "./lib/setup"
 
 class Turn
 
+  attr_reader :setup,
+              :cpu_coord
+
   def initialize
     @setup = Setup.new
     @player_coord = nil
@@ -18,42 +21,24 @@ class Turn
     puts @setup.player_board.render(true)
   end
 
-  def player_fire
-    puts "Enter the coordinate for your shot:"
-      #gets.chomp
-      #valid_coordinate?(gets.chomp)
-      #if true fire upon coordinate
-      #else "Please enter a valid coordinate:"
-      #if coord already fired upon inform player
-      #reassign @player_coord
-  end
-
   def cpu_fire
-    #???
-    #fired_upon_array?
-    #pick random coord
-    #if not fired upon, fire upon
-    #reassign @cpu_coord
-  end
-
-  def report_player_results
-    #Your shot on A4 was a miss.
-  end
-
-  def report_cpu_results
-    # My shot on C1 was a miss.
+    @cpu_coord = setup.player_board.cells.to_a.sample[1]
+    until !@cpu_coord.fired_upon?
+      @cpu_coord = setup.player_board.cells.to_a.sample[1]
+    end
+    @cpu_coord.fire_upon
   end
 
 end
 
-turn = Turn.new
-
-turn.render_cpu
-turn.render_player
-turn.player_fire
-turn.cpu_fire
-turn.report_player_results
-turn.report_cpu_results
+# turn = Turn.new
+#
+# turn.render_cpu
+# turn.render_player
+# turn.player_fire
+# turn.cpu_fire
+# turn.report_player_results
+# turn.report_cpu_results
 #check game_over?
 # A shot missed
 # A shot hit a ship
