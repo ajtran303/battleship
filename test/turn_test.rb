@@ -9,10 +9,13 @@ require "minitest/pride"
 
 class TurnTest < MiniTest::Test
 
+  def setup
+    @turn = Turn.new
+  end
+
   def test_cpu_fire
-    turn = Turn.new
-    turn.cpu_fire
-    assert_equal true, turn.cpu_coord.fired_upon?
+    @turn.cpu_fire
+    assert_equal true, @turn.cpu_coord.fired_upon?
   end
 
 end
