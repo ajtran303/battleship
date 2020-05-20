@@ -2,7 +2,7 @@ require "./lib/setup"
 
 class Turn
 
-  attr_reader :player_coord
+  attr_reader :player_coord, :setup
 
   def initialize
     setup = Setup.new
@@ -13,7 +13,7 @@ class Turn
 
   def render_cpu
     puts "=============COMPUTER BOARD============="
-    puts @setup.cpu_board.render(true)
+    puts @setup.cpu_board.render
   end
 
   def render_player
@@ -27,6 +27,7 @@ class Turn
 
   def fire_at_cpu
     if @setup.cpu_board.cells["#{@player_coord}"].fired_upon?
+      render_bars
       puts ["Again? Bold strategy!",
             "It was not very effective...",
             "You threw away your shot!!!",
@@ -37,13 +38,17 @@ class Turn
   end
 
   def get_player_coord
+    render_bars
     puts "Enter the coordinate for your shot:"
     loop do
       player_shot_coord = gets.chomp.upcase
-      break if @setup.player_board.valid_coordinate?(player_shot_coord)
-      puts "Please enter a valid coordinate:"
+      if @setup.player_board.valid_coordinate?(player_shot_coord)
+        update_player_coord(player_shot_coord)
+        break
+      else
+        puts "Please enter a valid coordinate:"
+      end
     end
-    update_player_coord(player_shot_coord)
   end
 
   def player_fire
@@ -60,8 +65,15 @@ class Turn
     "X" => "sunk a ship" }
   end
 
+  def render_bars
+    s = ""
+    40.times { s += "=" }
+    puts s
+  end
+
   def report_player_results
     x = get_player_shot_result
+    render_bars
     puts "Your shot on #{@player_coord} #{results[x]}."
   end
 
