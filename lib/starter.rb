@@ -70,7 +70,7 @@ class Starter
     puts "You won!" if cpu_lost?
     puts "I won!" if player_lost?
     2.times { render_bars }
-    main_menu
+    initialize
   end
 
   def game_over?

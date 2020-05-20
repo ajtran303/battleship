@@ -73,9 +73,9 @@ class Turn
   end
 
   def cpu_fire
-    @cpu_coord = setup.player_board.cells.keys.sample
+    @cpu_coord = setup.player_board.cells.to_a.sample[1]
     until !@cpu_coord.fired_upon?
-      @cpu_coord = setup.player_board.cells.keys.sample
+      @cpu_coord = setup.player_board.cells.to_a.sample[1]
     end
     @cpu_coord.fire_upon
   end
@@ -92,7 +92,7 @@ class Turn
 
   def report_cpu_results
     x = get_cpu_shot_result
-    "My shot on #{@cpu_coord.coordinate} #{results[x]}."
+    puts "My shot on #{@cpu_coord.coordinate} #{results[x]}."
   end
 
 end

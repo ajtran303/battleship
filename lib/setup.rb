@@ -19,6 +19,8 @@ class Setup
     @cpu_board = Board.new
     @cpu_cruiser = Ship.new("Cruiser", 3)
     @cpu_submarine = Ship.new("Submarine", 2)
+    place_cpu_ships
+    place_player_ships
   end
 
   def place_cpu_ships
