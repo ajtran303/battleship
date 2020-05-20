@@ -2,7 +2,7 @@ require "./lib/setup"
 
 class Turn
 
-  attr_reader :player_coord, :setup
+  attr_reader :player_coord, :setup, :cpu_coord
 
   def initialize
     setup = Setup.new
@@ -56,15 +56,6 @@ class Turn
     fire_at_cpu
   end
 
-  def cpu_fire
-  end
-
-  def results
-    { "M" => "was a miss",
-    "H" => "hit a ship",
-    "X" => "sunk a ship" }
-  end
-
   def render_bars
     s = ""
     40.times { s += "=" }
@@ -81,7 +72,27 @@ class Turn
     @setup.cpu_board.cells["#{@player_coord}"].render
   end
 
+  def cpu_fire
+    @cpu_coord = setup.player_board.cells.keys.sample
+    until !@cpu_coord.fired_upon?
+      @cpu_coord = setup.player_board.cells.keys.sample
+    end
+    @cpu_coord.fire_upon
+  end
+
+  def get_cpu_shot_result
+    @setup.player_board.cells[@cpu_coord.coordinate].render
+  end
+
+  def results
+    { "M" => "was a miss",
+    "H" => "hit a ship",
+    "X" => "sunk a ship" }
+  end
+
   def report_cpu_results
+    x = get_cpu_shot_result
+    "My shot on #{@cpu_coord.coordinate} #{results[x]}."
   end
 
 end
