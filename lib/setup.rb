@@ -1,17 +1,28 @@
 require "./lib/board"
 require "./lib/cell"
 require "./lib/ship"
+require "./lib/setup_computer"
 
 class Setup
 
   attr_reader :player_board,
               :player_cruiser,
-              :player_submarine
+              :player_submarine,
+              :cpu_board,
+              :cpu_cruiser,
+              :cpu_submarine
 
   def initialize
     @player_board = Board.new
     @player_cruiser = Ship.new("Cruiser", 3)
     @player_submarine = Ship.new("Submarine", 2)
+    @cpu_board = Board.new
+    @cpu_cruiser = Ship.new("Cruiser", 3)
+    @cpu_submarine = Ship.new("Submarine", 2)
+  end
+
+  def place_cpu_ships
+    SetupComputer.new(@cpu_board, [@cpu_cruiser, @cpu_submarine]).place_all_ships
   end
 
   def place_player_ships
