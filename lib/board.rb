@@ -34,7 +34,11 @@ class Board
   end
 
   def valid_placement?(ship, coords)
-    same_length?(ship, coords) && is_consecutive_row_or_col(coords) && !is_diagonal?(coords) && ( coords.none? { |coord| is_overlap?(coord) } )
+    coords.all? { |coord| valid_coordinate?(coord) } &&
+    same_length?(ship, coords) &&
+    is_consecutive_row_or_col?(coords) &&
+    !is_diagonal?(coords) &&
+    coords.none? { |coord| is_overlap?(coord) }
   end
 
   def same_length?(ship, coords)
@@ -53,7 +57,7 @@ class Board
     coords.all? { |num| num[-1] == "1"} || coords.all? { |num| num[-1] == "2"} || coords.all? { |num| num[-1] == "3"} || coords.all? { |num| num[-1] == "4"}
   end
 
-  def is_consecutive_row_or_col(coords)
+  def is_consecutive_row_or_col?(coords)
     is_consecutive_row?(coords) || is_consecutive_col?(coords)
   end
 

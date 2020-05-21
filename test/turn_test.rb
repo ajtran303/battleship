@@ -4,6 +4,9 @@ require "./lib/setup_computer"
 require "./lib/board"
 require "./lib/cell"
 require "./lib/ship"
+require "minitest/autorun"
+require "minitest/pride"
+
 
 class TurnTest < MiniTest::Test
 
@@ -34,6 +37,7 @@ class TurnTest < MiniTest::Test
     assert_equal "was a miss", turn.results["M"]
     assert_equal "hit a ship", turn.results["H"]
     assert_equal "sunk a ship", turn.results["X"]
+  end
 
   def setup
     @turn = Turn.new
